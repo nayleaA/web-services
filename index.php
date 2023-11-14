@@ -1,24 +1,8 @@
 <?php
-
-
     $env = parse_ini_file(".env");
     foreach ( $env as $llave => $value ){
         $_ENV[$llave] = $value;
     }
-
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MVC</title>
-</head>
-
-<body>
-    <?php
     //configurar cabeceras para el servicio
     //configurando el tipo de contenido delas respuestas
     header("Content-Type:application/json");
@@ -81,9 +65,7 @@
         }
 
         //validar que nos solicite la url que incluya  la version.
-        if(!isset($path_components[$version_ckeck_index])
-        ||
-        $path_components[$version_ckeck_index]!="v-1"){
+        if(!isset($path_components[$version_ckeck_index])){
             //notificar de no existencia de url
             header(HTTP_CODE_400);
             //romper ejecucion de php
@@ -100,7 +82,4 @@
                 exit();
         }
 
-        ?>
-</body>
-
-</html>
+ ?>
