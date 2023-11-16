@@ -47,7 +47,7 @@ Para la tabla de usuarios quedaria  asi:
 -DELETE - > http://www.myapi.com/api/v-1/usuarios/{id} (eliminar una usuario especifico)
 ```
 <!--EndPoint para categoria-->
-Para la tabla de  quedaria  asi:
+Para la tabla de categorias quedaria  asi:
 ```plain
 -GET    - > http://www.myapi.com/api/v-1/categorias (obtener todas las categorias )
 -GET    - > http://www.myapi.com/api/v-1/categorias/byid/{id} (obtener categorias  por id)
@@ -57,7 +57,7 @@ Para la tabla de  quedaria  asi:
 ```
 
 <!--EndPoint para  proyecto-->
-Para la tabla de  quedaria  asi:
+Para la tabla de proyecto quedaria  asi:
 ```plain
 -GET    - > http://www.myapi.com/api/v-1/proyectos (obtener todas los proyectos)
 -GET    - > http://www.myapi.com/api/v-1/proyectos/byid/{id} (obtener proyectos por id)
@@ -72,7 +72,7 @@ Para la tabla de  quedaria  asi:
 ```
 
 <!--EndPoint para lista comprobacion -->
-Para la tabla de  quedaria  asi:
+Para la tabla de lista de comprobación quedaria  asi:
 ```plain
 -GET    - > http://www.myapi.com/api/v-1/listac (obtener todas las listac)
 -GET    - > http://www.myapi.com/api/v-1/listac/byid/{id} (obtener listac por id)
@@ -87,7 +87,7 @@ Para la tabla de  quedaria  asi:
 ```
 
 <!--EndPoint para equipo -->
-Para la tabla de  quedaria  asi:
+Para la tabla de  equipo quedaria  asi:
 ```plain
 -GET    - > http://www.myapi.com/api/v-1/equipos (obtener todas las equipos)
 -GET    - > http://www.myapi.com/api/v-1/equipos/byid/{id} (obtener equipos por id)
@@ -98,7 +98,7 @@ Para la tabla de  quedaria  asi:
 ```
 
 <!--EndPoint para  detalle del equipo-->
-Para la tabla de  quedaria  asi:
+Para la tabla de detalle equipo quedaria  asi:
 ```plain
 -GET    - > http://www.myapi.com/api/v-1/tareas (obtener todas las tareas)
 -GET    - > http://www.myapi.com/api/v-1/tareas/byid/{id} (obtener tareas por id)
