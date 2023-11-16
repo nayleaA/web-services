@@ -58,10 +58,10 @@ class UsuarioRepository
         $sentencia=$this->mysqli->prepare($query);
         $usuarios=array();
         $sentencia->execute();
-        $sentencia->bind_result($id,$nombre,$password);
+        $sentencia->bind_result($id,$nombre,$email,$password);
 
         while ($sentencia->fetch()) {
-           $usuario=new Usuario($id,$nombre,$password);
+           $usuario=new Usuario($id,$nombre,$email,$password);
            $usuarios[]=$usuario;
         }
         return $usuarios;
