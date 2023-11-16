@@ -6,6 +6,7 @@
 
     switch ($path_components[$path_index]) {
         case 'tareas':
+            require_once("");
             break;
         
         case 'usuarios':

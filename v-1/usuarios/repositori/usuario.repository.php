@@ -1,8 +1,10 @@
 <?php
+require_once("./v-1/usuarios/moldel/usuario.model.php");
 
 class UsuarioRepository
 {
     private static $_intance = [];
+    private static $TABLENAME="usuarios2";
 
     private mysqli $mysqli;
 
@@ -32,8 +34,9 @@ class UsuarioRepository
     }
 
     private function createTable(): void {
+        $table=$this::$TABLENAME;
         $query = "
-            CREATE TABLE IF NOT EXISTS usuarios(
+            CREATE TABLE IF NOT EXISTS $table(
                 id_usuario long NULL AUTO_INCREMENT,
                 nombre varchar(255) NOT NULL,
                 email varchar(255) NOT NULL,
@@ -48,6 +51,20 @@ class UsuarioRepository
         $sentencia->execute();
 
         $sentencia->close();
+    }
+
+    public function getAllUsuarios(): array {
+        $query="SELECT*FROM {$this::$TABLENAME}";
+        $sentencia=$this->mysqli->prepare($query);
+        $usuarios=array();
+        $sentencia->execute();
+        $sentencia->bind_result($id,$nombre,$password);
+
+        while ($sentencia->fetch()) {
+           $usuario=new Usuario($id,$nombre,$password);
+           $usuarios[]=$usuario;
+        }
+        return $usuarios;
     }
 }
 ?>

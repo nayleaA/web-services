@@ -29,6 +29,9 @@ En este caso para la tabla de tareas quedaria algo asi:
 Para la tabla de usuarios quedaria  asi:
 ```plain
 -GET    - > http://www.myapi.com/api/v-1/usuarios (obtener todas los usuarios)
+
+-(query params) [fields, searchby()]
+
 -GET    - > http://www.myapi.com/api/v-1/usuarios/byid/{id} (obtener usuarios por id)
 -POST   - > http://www.myapi.com/api/v-1/usuarios (registrar usuarios)
 -PUT    - > http://www.myapi.com/api/v-1/usuarios/{id} (modificar una usuario espeficico)
