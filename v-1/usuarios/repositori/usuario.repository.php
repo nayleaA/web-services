@@ -1,5 +1,5 @@
 <?php
-require_once("./v-1/usuarios/moldel/usuario.model.php");
+require_once("./v-1/usuarios/model/usuario.model.php");
 
 class UsuarioRepository
 {
@@ -37,7 +37,7 @@ class UsuarioRepository
         $table=$this::$TABLENAME;
         $query = "
             CREATE TABLE IF NOT EXISTS $table(
-                id_usuario long NULL AUTO_INCREMENT,
+                id_usuario bigint NULL AUTO_INCREMENT,
                 nombre varchar(255) NOT NULL,
                 email varchar(255) NOT NULL,
                 password varchar(255) NOT NULL,
