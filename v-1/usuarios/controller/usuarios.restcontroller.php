@@ -11,7 +11,7 @@ switch ($request_method) {
                 break;
             }
 
-            $path_components[$path_components+2];
+            $path_components[$path_index+2];
             //completar busqueda por id
             break;
         }
@@ -22,7 +22,15 @@ switch ($request_method) {
     case 'POST':
         # code...
         break;
-    default:
+    case 'PUT':
+         # code...
+         break;
+    
+    case 'DELETE':
+        # code...
+        break;
+
+    default: //Este va a reaccionar cono si fuera verbo OPTIONS
         # code...
         break;
 }

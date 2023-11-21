@@ -66,5 +66,21 @@ class UsuarioRepository
         }
         return $usuarios;
     }
+
+    public function getUsuarioById(int $id): Usuario {
+
+    }
+
+    public function createUsuario(Usuario $usuario): Usuario {
+
+    }
+
+    public function editUsuario(Usario $usuario): Usuario {
+
+    }
+
+    public function deleteUsario(int $id): Usuario {
+
+    }
 }
 ?>
