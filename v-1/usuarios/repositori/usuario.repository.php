@@ -67,20 +67,57 @@ class UsuarioRepository
         return $usuarios;
     }
 
-    public function getUsuarioById(int $id): Usuario {
+    public function getUsuarioById(int $id): array {//devolver a que retorne usuario
+        $query="SELECT*FROM {$this::$TABLENAME} where id_usuario=$id";
+        $sentencia=$this->mysqli->prepare($query);
+        $usuarios=array();
+        $sentencia->execute();
+        $sentencia->bind_result($id,$nombre,$email,$password);
 
+        while ($sentencia->fetch()) {
+           $usuario=new Usuario($id,$nombre,$email,$password);
+           $usuarios[]=$usuario;
+        }
+        return $usuarios;
     }
 
-    public function createUsuario(Usuario $usuario): Usuario {
+    public function createUsuario(Usuario $usuario): string{ //deolvover a quw retorne usuario
+        $this->mysqli->begin_transaction();
+        $query = "INSERT INTO {$this::$TABLENAME} (nombre, email, password) VALUES (?, ?, ?)";
+        $sentencia = $this->mysqli->prepare($query); 
+        
+        $sentencia->bind_param("sss", $usuario->getUsuario(), $usuario->getEmail(), $usuario->getPassword());
 
+        if (!$sentencia->execute()) {
+            $this->mysqli->rollback();
+            $mensaje = "No se pudo insertar";
+        } 
+        else {
+            $this->mysqli->commit();
+            $mensaje = "Se insertó correctamente";
+        }
+        return $mensaje;
     }
 
-    public function editUsuario(Usario $usuario): Usuario {
-
+    public function editUsuario(Usuario $usuario): string {
+        $query = "UPDATE {$this::$TABLENAME} SET nombre = ?, email = ?, password = ? WHERE id_usuario = ?";
+        $sentencia = $this->mysqli->prepare($query);
+        $sentencia->bind_param("sssi",$usuario->getUsuario(), $usuario->getEmail(), $usuario->getPassword(), $usuario->getId());
+        $resultado = $sentencia->execute();
+    
+        if ($resultado ==true)
+        return "modificacion exitosa"; // Devolver true si la actualización fue exitosa
     }
 
-    public function deleteUsario(int $id): Usuario {
+    public function deleteUsuario(int $id): string {//deolvover a quw retorne usuario
+        $query = "DELETE FROM {$this::$TABLENAME} WHERE id_usuario = ?";
+        $sentencia = $this->mysqli->prepare($query);
+        $sentencia->bind_param("i", $id);
+        $resultado = $sentencia->execute();
 
+    if ($resultado === true) {
+        return "eliminacion exitosa"; // Manejar el error de ejecución de la consulta
+    }
     }
 }
 ?>

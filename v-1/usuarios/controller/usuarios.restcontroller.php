@@ -11,23 +11,47 @@ switch ($request_method) {
                 break;
             }
 
-            $path_components[$path_index+2];
+            $id=$path_components[$path_index+2];
+            //echo $id;
             //completar busqueda por id
+            $usuarios=$usuarioRepo->getUsuarioById($id);
+            echo json_encode($usuarios);
             break;
         }
         $usuarios=$usuarioRepo->getAllUsuarios();
         echo json_encode($usuarios);
-
         break;
     case 'POST':
-        # code...
+        $nombre ='Admin2';
+        $email ='Admin2@gmail.com';
+        $password ='Admin2';
+
+        //rescatar el usuario
+        $NuevoUsuario = new Usuario(0,$nombre,$email,$password);
+
+        //enviarlo
+        $usuarios=$usuarioRepo->createUsuario( $NuevoUsuario );
+        echo json_encode($usuarios);
+        
         break;
     case 'PUT':
-         # code...
+        $id="2";
+        $nombre ='Admin4';
+        $email ='Admin4@gmail.com';
+        $password ='Admin4';
+
+        //rescatar el usuario
+        $NuevoUsuario = new Usuario($id,$nombre,$email,$password);
+
+        //enviarlo
+        $usuarios=$usuarioRepo->editUsuario( $NuevoUsuario );
+        echo json_encode($usuarios);
          break;
     
     case 'DELETE':
-        # code...
+        $id='3';
+        $usuarios=$usuarioRepo->deleteUsuario( $id );
+        echo json_encode($usuarios);
         break;
 
     default: //Este va a reaccionar cono si fuera verbo OPTIONS
