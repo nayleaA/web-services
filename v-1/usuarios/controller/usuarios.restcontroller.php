@@ -22,17 +22,33 @@ switch ($request_method) {
         echo json_encode($usuarios);
         break;
     case 'POST':
-        $nombre ='Admin2';
-        $email ='Admin2@gmail.com';
-        $password ='Admin2';
+        $fieldsRequired = ['nombre', 'email', 'password'];
+        //Definir variables
+        $nombre = '';
+        $email = '';
+        $password = '';
 
-        //rescatar el usuario
-        $NuevoUsuario = new Usuario(0,$nombre,$email,$password);
+        $json = file_get_contents('php://input');
+        $entrada = json_decode($json, true);
+        //validar el retorno de JSON
+        if ($entrada == null){
+            header(HTTP_CODE_400);
+            break;
+        }
 
-        //enviarlo
-        $usuarios=$usuarioRepo->createUsuario( $NuevoUsuario );
-        echo json_encode($usuarios);
-        
+        foreach ($fieldsRequired as $key => $value) {
+            if ( !isset($entrada[$value]) ){
+                header(HTTP_CODE_400);
+                exit();
+            }
+            $$value = $entrada[$value];
+        }
+        $usuario = $usuarioRepo->createUsuario(
+            $nombre, 
+            $email, 
+            $password
+        );
+        echo json_encode($usuario);
         break;
     case 'PUT':
         $id="2";

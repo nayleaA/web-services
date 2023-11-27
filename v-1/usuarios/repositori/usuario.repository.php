@@ -67,36 +67,48 @@ class UsuarioRepository
         return $usuarios;
     }
 
-    public function getUsuarioById(int $id): array {//devolver a que retorne usuario
-        $query="SELECT*FROM {$this::$TABLENAME} where id_usuario=$id";
+    public function getUsuarioById(int $id): Usuario {//devolver a que retorne usuario
+        $query="SELECT*FROM {$this::$TABLENAME} where id_usuario=?";
         $sentencia=$this->mysqli->prepare($query);
-        $usuarios=array();
-        $sentencia->execute();
-        $sentencia->bind_result($id,$nombre,$email,$password);
+        $sentencia->bind_param("i",$id);
 
-        while ($sentencia->fetch()) {
-           $usuario=new Usuario($id,$nombre,$email,$password);
-           $usuarios[]=$usuario;
+        if ( !$sentencia->execute() ){
+            return null;
         }
-        return $usuarios;
+        $sentencia->bind_result($id, $nombre, $email, $password);
+
+        if ( !$sentencia->fetch() ){
+            return null;
+        }
+        $usuario = new Usuario($id, $nombre, $email, $password);
+        return $usuario; 
     }
 
-    public function createUsuario(Usuario $usuario): string{ //deolvover a quw retorne usuario
+    public function createUsuario(string $nombre,string $email, string $password): Usuario{ //deolvover a quw retorne usuario
+        $newUsuario=new Usuario(-1,$nombre,$email,$password);
+
         $this->mysqli->begin_transaction();
         $query = "INSERT INTO {$this::$TABLENAME} (nombre, email, password) VALUES (?, ?, ?)";
+
         $sentencia = $this->mysqli->prepare($query); 
         
-        $sentencia->bind_param("sss", $usuario->getUsuario(), $usuario->getEmail(), $usuario->getPassword());
+        $sentencia->bind_param("sss", 
+        $nombre, 
+        $email, 
+        $password);
 
         if (!$sentencia->execute()) {
             $this->mysqli->rollback();
-            $mensaje = "No se pudo insertar";
+           // $mensaje = "No se pudo insertar";
+           return null;
         } 
         else {
+            $newUsuario->setId($this->mysqli->insert_id);
             $this->mysqli->commit();
-            $mensaje = "Se insertó correctamente";
+            //$mensaje = "Se insertó correctamente";
         }
-        return $mensaje;
+        //return $mensaje;
+        return $newUsuario;
     }
 
     public function editUsuario(Usuario $usuario): string {
